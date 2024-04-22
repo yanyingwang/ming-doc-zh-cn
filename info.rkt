@@ -2,7 +2,7 @@
 (define collection "ming-doc-zh-cn")
 (define deps '("base"))
 (define build-deps '("scribble-lib" "racket-doc" "rackunit-lib" "https://github.com/yanyingwang/ming.git#0.0.3"))
-(define scribblings '(("scribblings/ming-zh-cn.scrbl" ())))
+(define scribblings '(("scribblings/ming-doc-zh-cn.scrbl" ())))
 (define pkg-desc "the zh cn version doc of ming lang")
 (define version "0.1")
 (define pkg-authors "Yanying Wang")
