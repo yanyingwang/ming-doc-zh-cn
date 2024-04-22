@@ -5,5 +5,5 @@
 (define scribblings '(("scribblings/ming-zh-cn.scrbl" ())))
 (define pkg-desc "the zh cn version doc of ming lang")
 (define version "0.1")
-(define pkg-authors "Yanying Wang"))
+(define pkg-authors "Yanying Wang")
 (define license "Apache-2.0")
