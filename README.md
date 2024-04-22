@@ -1,3 +1,4 @@
 ming-doc-zh-cn
 ==============
-README text here.
+the zh cn version doc of [ming-lang](https://www.github.com/yanyingwang/ming):
+
