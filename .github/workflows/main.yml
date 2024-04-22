@@ -1,0 +1,45 @@
+name: main
+on:
+  push:
+    branches:
+      - "dev"
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        racket-version: ["stable"]
+        racket-variant: ["CS"]
+    name: main
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Bogdanp/setup-racket@v0.12
+        with:
+          architecture: x64
+          distribution: full
+          variant: ${{ matrix.racket-variant }}
+          version: ${{ matrix.racket-version }}
+      - name: Installing pkgs
+        run: raco pkg install --no-docs --auto --name ming-doc-zh-cn
+      - name: Compiling and building its docs
+        run: raco setup --check-pkg-deps --unused-pkg-deps ming-doc-zh-cn
+
+      - name: build docs
+        run: |
+          raco scribble --htmls \
+                        --dest-name doc \
+                        ++main-xref-in \
+                        --redirect-main https://docs.racket-lang.org/ \
+                        --redirect https://docs.racket-lang.org/local-redirect/index.html \
+                        scribblings/ming-doc-zh-cn.scrbl
+                        # ++extra private/scribble-styles/css/SourceHanSansCNX-Regular.woff2 \
+                        # --redirect ~/racket/doc/local-redirect/index.html \
+                        # --redirect-main ~/racket/doc/index.html \
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v1.2.5
+        with:
+          target_branch: gh-pages
+          build_dir: doc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
